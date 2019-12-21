@@ -1,6 +1,40 @@
-## **invoicer Solution:**
+## **Invoicer -Invoicing Solution:**
 
-A web application for small business owners and freelancers needing a simple and professional invoicer solution.
+A web application for small business owners and freelancers needing a simple and professional invoicing solution.
+
+## Starting the project
+Create a schema in your MySQL instance called `invoicing`
+Create tables from `sqlQueries.sql` in the same order as provided in file.
+
+#### Setting up Config
+In default.json in config folder in api, change the values of `dbname` to `invoicing` and `host`, `user` and `password` to your corresponding database hostname, usermane and password
+
+In .env in app, replace the values of PORT, API_URL and API_PORT with Server Port, API server hostname, API server port number. 
+`dbname` to `invoicing` and `host`, `user` and `password` to your corresponding database hostname, usermane and password
+
+Download and install NodeJS from `https://nodejs.org/en/download/`
+
+#### Testing on Dev Environment
+To start the server, goto api directory in terminal and run `npm install` and `npm run dev`
+
+To start the front-end, goto app directory in terminal and run `npm install` and `npm run dev`
+
+#### Working on Production environment Environment
+Install `forever` CLI tool for ensuring that servers are always running and create logs by running `npm install -g forever`
+
+To start the server, goto `api` directory in terminal and run `npm install` and then
+ `forever start --minUptime 1000 --spinSleepTime 1000 app.js`
+
+To start the server, goto `app` directory in terminal and run `npm install` and then
+ `forever start --minUptime 1000 --spinSleepTime 1000 app.js`
+
+### Working with Project
+Open your browser and open page `localhost:4000/` (default page)
+If you have changed port number in .env in app, replace 4000 in above URL with your own port
+
+Register a user, if it is your first time working with the web application
+Login with the registered Username (mobile) and Password 
+
 
 ## Core features
 
@@ -32,13 +66,11 @@ A web application for small business owners and freelancers needing a simple and
 
 ## Languages &amp; Tools
 
-Front-end- HTML5, jQuery 3, Bootstrap 3, CSS
+Front-end- ExpressJS / HTML5, jQuery 3, Bootstrap 3, CSS
 
 Backend- NodeJS/ Express
 
 Database - MySQL 8
-
-Endpoint Testing – Postman
 
 > Libraries Used-
 
@@ -46,29 +78,10 @@ Endpoint Testing – Postman
 
 **Datatable** - `https://datatables.net/`
 
-**Apache 2** - To run front-end
-
-# Timeline
-
-10/16 Milestone #1:
-
-- Basic user login/registration flow
-
-- Storing new Product, view existing ones
-
-- Storing new Customer, view existing ones
-
-11/25 Milestone #2
-
-- PDF invoice generation against a client/ View existing invoices
-
-- Optional Features if time remaining
-
-
 > Running the API
 
-To run the API, Goto api folder, open terminal and type `npm start`
+To run the API, Goto api folder, open terminal in directory and type `npm run start`
 
+> Running the APP
 
-###### Security
-> SQL Injection - `SQL queries are escaped`
+To run the APP, Goto app folder, open terminal in directory and type `npm run start`
