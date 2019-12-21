@@ -1,0 +1,205 @@
+<style>
+    .background-div{
+        background-color: white;
+        background-image: url('static/images/auth-background.jpg');
+        background-size: auto 100%;
+        background-repeat: no-repeat;
+        background-position: left top;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
+<div class="background-div">
+    <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+    <div class="container">
+        <div class="row">
+            <div style="text-align: center;margin-bottom: 35px;">
+                <h3>Invoicer - invoicer Solution</h3>
+                <img src="/static/images/logo.png" height="100">
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6 text-center">
+                                <a href="/login" id="login-form-link">Login</a>
+                            </div>
+                            <div class="col-xs-6 div-border-left">
+                                <a href="#" class="active" id="register-form-link">Register</a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="register-form">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="text" autofocus name="name" id="name" tabindex="1" class="form-control" placeholder="Name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mobile (Username)</label>
+                                        <input type="number" step="1" minlength="10" min="1000000000" name="mobile" id="username" tabindex="1" class="form-control" placeholder="Mobile" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email (Optional)</label>
+                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address (optional)"></div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input type="password" minlength="6" name="password" id="password" tabindex="1" class="form-control"
+                                               placeholder="Enter password (Min 6 digits)" required title="Min 6 digits"></div>
+                                    <div class="form-group">
+                                        <label>Confirm Password</label>
+                                        <input type="password" minlength="6" name="confirm_password" id="confirm_password" tabindex="2" class="form-control"
+                                               placeholder="Confirm Password (Min 6 digits)" required title="Min 6 digits"></div>
+                                    <div class="form-group">
+                                        <label>Company Name</label>
+                                        <input type="text" name="company_name" id="company_name" tabindex="1" class="form-control"
+                                               placeholder="Company Name" required></div>
+                                    <div class="form-group">
+                                        <label>Company Website (Optional)</label>
+                                        <input type="text" name="company_website" id="company_website" tabindex="1" class="form-control"
+                                               placeholder="Company website(optional)" value="http://"></div>
+                                    <div class="form-group">
+                                        <label>Company Type</label>
+                                        <select required name="company_type" id="company_type" tabindex="1">
+                                            <option title='Select' value="0">Select</option>
+                                            <option title='freelancer' value='1'>Freelancer</option>
+                                            <option title='small_business' value='2'>Small Business</option>
+                                            <option title='limited_liability_company' value='3'>Limited Liability Company</option>
+                                            <option title='multinational_corporation' value='4'>Multinational Corporation</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Address</label>
+                                        <input type="text" name="company_address" id="company_address" tabindex="1" class="form-control"
+                                               placeholder="Company Address"></div>
+                                    <div class="register_alert_div alert" style="display: none"></div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <div style="margin-bottom: 10px; display: none;text-align: center" class="alert_user"></div>
+                                                <input type="submit" name="register-submit" id="register-submit" class="form-control btn btn-login" value="Register Now"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    if (typeof(Storage) !== "undefined") {
+        if (auth !== null) {
+            window.location = "/customers";
+        }
+    }
+    else{
+        $('#register-form').html('<h1 style="margin: 55px;text-align: center">Browser not supported</h1>')
+    }
+
+    $(document).on("keydown", "#username", function(event){
+        if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || (event.keyCode >= 48 &&  event.keyCode <= 58))
+            return true;
+        else
+            return false;
+    })
+
+    $(document).on("submit", "#register-form", function(){
+        const name = $(this).find('input[name="name"]').val().trim();
+        const mobile = $(this).find('input[name="mobile"]').val().trim();
+        const email = $(this).find('input[name="email"]').val().trim();
+        const password = $(this).find('input[name="password"]').val().trim();
+        const confirm_password = $(this).find('input[name="confirm_password"]').val().trim();
+        const company_name = $(this).find('input[name="company_name"]').val().trim();
+        const company_website = $(this).find('input[name="company_website"]').val().trim();
+        const company_address = $(this).find('input[name="company_address"]').val().trim();
+        const company_type = $(this).find('select[name="company_type"]').val();
+
+        if(!name.length){
+            $('.register_alert_div').addClass('alert-danger');
+            $(".register_alert_div").text("Name cannot be left blank").show(0).delay(3000).hide(0);
+            return false;
+        }
+        else if(!mobile.length){
+            $('.register_alert_div').addClass('alert-danger');
+            $(".register_alert_div").text("Mobile cannot be left blank").show(0).delay(3000).hide(0);
+            return false;
+        }
+        else if(!password.length){
+            $('.register_alert_div').addClass('alert-danger');
+            $(".register_alert_div").text("Password cannot be left blank").show(0).delay(3000).hide(0);
+            return false;
+        }
+        else if(!confirm_password.length){
+            $('.register_alert_div').addClass('alert-danger');
+            $(".register_alert_div").text("Confirm Password cannot left blank").show(0).delay(3000).hide(0);
+            return false;
+        }
+        else if(!company_name.length){
+            $('.register_alert_div').addClass('alert-danger');
+            $(".register_alert_div").text("Company Name cannot be left blank").show(0).delay(3000).hide(0);
+            return false;
+        }
+        else if(!company_address.length){
+            $('.register_alert_div').addClass('alert-danger');
+            $(".register_alert_div").text("Company Address cannot be left blank").show(0).delay(3000).hide(0);
+            return false;
+        }
+        else if(parseInt(company_type) === 0){
+            $('.register_alert_div').addClass('alert-danger');
+            $(".register_alert_div").text("Please select a Company Type").show(0).delay(3000).hide(0);
+            return false;
+        }
+
+        if(password !== confirm_password){
+            $('.register_alert_div').addClass('alert-danger');
+            $(".register_alert_div").text("Passwords don't match").show(0).delay(3000).hide(0);
+            return false;
+        }
+
+
+        let detailJSON = {name,mobile,password,confirmPassword:confirm_password,companyName:company_name,type_id:company_type,company_address};
+        if(email.length){
+            detailJSON = {...detailJSON,email}
+        }
+        if(company_website.length && company_website !== "http://"){
+            detailJSON = {...detailJSON,company_website}
+        }
+        detailJSON = JSON.stringify(detailJSON);
+
+        $.ajax({
+            url: `${api_url}/user/register`,
+            type: 'post',
+            data: detailJSON,
+            contentType: 'application/json',
+            success: function(data, textStatus, jqXHR){
+                if(jqXHR.status === 200 && data.status === "success"){
+                    $('#register-form').trigger("reset");
+                    $('.register_alert_div').removeClass('alert-danger').addClass('alert-success');
+                    $(".register_alert_div").html("Registered successfully. Please login <a href='/login'>here</a>").show(0);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                $(".register_alert_div").empty().hide().removeClass('alert-success').addClass('alert-danger');
+                if(jqXHR.hasOwnProperty('responseJSON') && jqXHR.responseJSON.hasOwnProperty('message')){
+                    $(".register_alert_div").text(jqXHR.responseJSON.message).show().fadeTo(2000, 500).slideUp(500);
+                }
+                else {
+                    $(".register_alert_div").text("Error while registering. Please try after some time !!").show().fadeTo(2000, 500).slideUp(500);
+                }
+            }
+        });
+        return false;
+    });
+</script>

@@ -1,0 +1,167 @@
+<script type="text/javascript" src="static/javascripts/vendor/moment.min.js"></script>
+<nav class="navbar navbar-default">
+    <a href="#" class="navbar-left"><img class="custom_brand_logo" src="/static/images/logo.png" alt="logo"
+                                         style="float: left;" height="50"></a>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs navbar-nav navbar-right">
+            <li class=""><a href="/products"><i class="fa fa-th-list" aria-hidden="true"></i> Products</a></li>
+            <li class="active"><a href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i> Invoices</a></li>
+            <li class=""><a href="/customers"><i class="fa fa-users" aria-hidden="true"></i> Customers</a></li>
+            <li class="logout-root"><a href="#logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Log Out</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-md-6 ">
+        <h2>Invoices</h2>
+    </div>
+    <div class="col-md-6 ">
+        <div class="add_more_button add_new_invoice" style="width: 124px"><i class="fa fa-plus" aria-hidden="true"></i>
+            Add new Invoice
+        </div>
+        <div class="remove_more_button remove_new_invoice" style="width: 124px; display: none"><i class="fa fa-times" aria-hidden="true"></i>
+            Cancel
+        </div>
+    </div>
+</div>
+<div class="container">
+    <form class="add-invoice-form" style="display: none">
+        <hr>
+        <h4 class="color-green">NEW INVOICE</h4>
+        <div class="row m-t-15">
+            <div class="col-md-6 ">
+                <label>Unique Order Number</label>
+                <input type="text" class="form-control" placeholder="Unique Order Number" name="inv_number" maxlength="45" required>
+            </div>
+            <div class="col-md-6 ">
+                <label>Bill To</label>
+                <select class="form-control" name="customer_id" id="customer_id" required="required">
+                </select>
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <div class="col-md-6">
+                <label>Invoice Date</label>
+                <input type="date" class="form-control" placeholder="Select Date" name="inv_date" required>
+            </div>
+            <div class="col-md-6 ">
+                <label>Due Date</label>
+                <input type="date" class="form-control" placeholder="Select Date" name="due_date" required>
+            </div>
+        </div>
+        <div class="col-md-12 m-t-15">
+            <hr>
+            <h4>Product</h4>
+        </div>
+        <div class='product_parent'>
+            <div class="row 1 m-t-15">
+                <div class="col-md-6 ">
+                    <label>Name</label>
+                    <select class="form-control product 1"  id="product_id" name="product_id" required>
+                    </select>
+                </div>
+                <div class="col-md-1 ">
+                    <label>Quantity</label>
+                    <input type="number" step="1" min="1" max="9999" class="form-control quantity 1" placeholder="Qty" name="quantity" required>
+                </div>
+                <div class="col-md-2 ">
+                    <label>Rate (in $)</label>
+                    <input type="number" step="0.01" min="0.01" max="9999" class="form-control rate 1" placeholder="Rate" name="rate" required>
+                </div>
+                <div class="col-md-2 ">
+                    <label>Amount (in $)</label>
+                    <div class="div-amount">0</div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row m-t-15">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-1">
+                <label>Discount (in %)</label>
+            </div>
+            <div class="col-md-2">
+                <input type="number" step="0.01" min="0.01" max="100" class="form-control discount" placeholder="Discount (optional)" name="discount">
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-1">
+                <label>Tax (in %)</label>
+            </div>
+            <div class="col-md-2">
+                <input type="number" step="0.01" min="0.01" max="100" class="form-control tax_val" placeholder="Tax (in %)" name="tax_val" required>
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-1">
+                <label>Shipping</label>
+            </div>
+            <div class="col-md-2">
+                <input type="number" step="0.01" min="0.01" class="form-control shipping_charge" placeholder="Shipping (optional)" name="shipping_charge">
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <hr>
+            <div class="col-md-3 ">
+                <label>Total</label>
+            </div>
+            <div class="col-md-3 total_amt">
+                <div>$ 0.00</div>
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-1">
+                <label>Amount Paid</label>
+            </div>
+            <div class="col-md-2">
+                <input type="number" step="0.01" min="0.01" max="9999" class="form-control amt_paid" placeholder="Amount Paid (if any)" name="prepaid_amt" required>
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <div class="col-md-3 ">
+                <label>Balance Due</label>
+            </div>
+            <div class="col-md-3 balanace">
+                <div>$ 0.00</div>
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <div class="col-md-12 ">
+                <label>Notes</label>
+                <textarea class="form-control" name="notes" placeholder="Notes (optional)"></textarea>
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <div class="col-md-12 ">
+                <label>Terms & Conditions</label>
+                <textarea class="form-control" name="terms" placeholder="Terms & Conditions (optional)"></textarea>
+            </div>
+        </div>
+        <div class="invoice_alert_div alert" style="display: none"></div>
+        <button type="submit" class="btn submit-btn m-t-15">Submit</button>
+    </form>
+    <hr>
+    <table id="invoices-table" class="display:none" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Invoice Number</th>
+            <th>Customer Name</th>
+            <th>Due Amount</th>
+            <th>Invoice Date</th>
+            <th>Due Date</th>
+            <th>Generated On</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+    </table>
+    <div class="no_data_found"></div>
+</div>
+<script type="text/javascript" src="static/javascripts/invoice.js?v=0.0.2"></script>
+<script type="text/javascript" src="static/javascripts/logout.js"></script>

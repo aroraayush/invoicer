@@ -1,0 +1,275 @@
+<script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<style>
+    .invoice-box {
+        max-width: 800px;
+        margin: auto;
+        padding: 30px;
+        border: 1px solid #eee;
+        box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+        font-size: 16px;
+        line-height: 24px;
+        font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        color: #555;
+    }
+
+    .invoice-box table {
+        width: 100%;
+        line-height: inherit;
+        text-align: left;
+    }
+    .invoice-box table td {
+        padding: 5px;
+        vertical-align: top;
+    }
+
+    .invoice-box table tr td:nth-child(2) {
+        text-align: right;
+    }
+
+    .invoice-box table tr.top table td {
+        padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.top table td.title {
+        font-size: 45px;
+        line-height: 45px;
+        color: #333;
+    }
+
+    .invoice-box table tr.information table td {
+        padding-bottom: 40px;
+    }
+
+    .invoice-box table tr.heading td {
+        background: #eee;
+        border-bottom: 1px solid #ddd;
+        font-weight: bold;
+    }
+
+    .invoice-box table tr.details td {
+        padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.item td{
+        border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.item.last td {
+        border-bottom: none;
+    }
+
+    .invoice-box table tr.total td:nth-child(2) {
+        border-top: 2px solid #eee;
+        font-weight: bold;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .invoice-box table tr.top table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+    }
+
+    @media print {
+        @page {
+            /*margin-top: 0;*/
+            margin-bottom: 10px;
+        }
+        body {
+            padding-top: 0px;
+            padding-bottom: 72px;
+        }
+    }
+</style>
+<div class="invoice-box" id="invoice-box" style="max-width: 800px;margin: auto;padding: 30px;border: 1px solid #eee;font-size: 16px;line-height: 24px;font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;color: #555;">
+    <table class="invoice-table" cellpadding="0" cellspacing="0"  style="width: 100%;line-height: inherit;text-align: left;">
+        <tr class="top">
+            <td colspan="2">
+                <table style="width: 100%;line-height: inherit;text-align: left;">
+                    <tr>
+                        <td class="title">
+                            <img src="/static/images/logo.png" id="logo" height="100">
+                        </td>
+                        <td>
+                            <p class="order_num">Invoice #: </p>
+                            <p class="inv_date">Created: </p>
+                            <p class="due_date">Due: </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            <p class="user_company_name"></p>
+                            <p class="user_company_address"></p>
+                        </td>
+                        <td>
+                            <p class="customer_company_name"></p>
+                            <p class="customer_name"></p>
+                            <p class="customer_email"></p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="heading">
+            <td>
+                Item
+            </td>
+            <td class="">
+                Rate * Quantity = Total Price
+            </td>
+        </tr>
+        <tr class="item last">
+            <td class="product_name">
+
+            </td>
+            <td class="rateQty">
+                $ 00
+            </td>
+        </tr>
+        <tr class="heading">
+            <td>
+                Other Charges:
+            </td>
+            <td class="">
+            </td>
+        </tr>
+        <tr class="item discount_tr">
+            <td class="">
+            Discount (in %)
+            </td>
+            <td class="discount">
+            </td>
+        </tr>
+        <tr class="item tax_tr">
+            <td class="">
+            Tax (in %)
+            </td>
+            <td class="tax_val">
+                00
+            </td>
+        </tr>
+        <tr class="item shipping_tr">
+            <td class="">
+            Shipping (in $)
+            </td>
+            <td class="shipping">
+                $ 00
+            </td>
+        </tr>
+        <tr class="item">
+            <td class="">
+            Total (in $)
+            </td>
+            <td class="total_amt">
+                $ 00
+            </td>
+        </tr>
+        <tr class="heading paid_amt">
+            <td>
+                Prepaid Amount
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr class="details paid_amt">
+            <td>
+                Amount(in $)
+            </td>
+
+            <td class="amount_paid">
+            </td>
+        </tr>
+        <tr class="total">
+            <td></td>
+
+            <td class="due_amt">
+               Balance Pending:
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+
+    var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    if(isChrome) {
+
+    }
+    (() => {
+        $.ajax({
+            url: `${api_url}/invoice/{{inv_id}}`,
+            type: 'get',
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", auth);
+            },
+            contentType: 'application/json',
+            success: function(data, textStatus, jqXHR){
+                if(jqXHR.status === 200){
+                    console.log("data.data",data.data);
+                    $('.order_num').html("Invoice #: "+data.data.inv_number);
+                    $('.inv_date').html("Created: "+ moment(data.data.inv_date).format("MMM D, YYYY"));
+                    $('.due_date').html("Due: "+ moment(data.data.due_date).format("MMM D, YYYY"));
+                    $('.user_company_name').html(data.data.user_company_name);
+                    $('.user_company_address').html(data.data.user_company_address);
+                    $('.customer_company_name').html(data.data.customer_company_name);
+                    $('.customer_name').html(data.data.customer_name);
+                    $('.customer_email').html(data.data.customer_email);
+                    $('.product_name').html(data.data.product_name);
+                    $('.quantity').html(data.data.quantity);
+                    $('.rate').html(data.data.rate);
+                    $('.rateQty').html("$ " +data.data.rate+ " * " +data.data.quantity+" = $ " + (parseFloat(data.data.quantity) * parseFloat(data.data.rate)).toFixed(2));
+                    $('.rate').html(data.data.rate);
+                    $('.tax_val').html(data.data.tax_val);
+                    $('.total_amt').html(data.data.total_amt);
+                    $('.due_amt').html("Balance Pending: $"+data.data.due_amt);
+
+                    if(parseFloat(data.data.prepaid_amt)>0)
+                        $('.amount_paid').html(data.data.prepaid_amt);
+                    else
+                        $('.amount_paid').html("$ 0.00");
+
+                    if(parseFloat(data.data.shipping_charge)>0)
+                        $('.shipping').html(data.data.shipping_charge);
+                    else
+                        $('.shipping_tr').hide();
+
+                    if(parseFloat(data.data.discount)>0)
+                        $('.discount').html(data.data.discount);
+                    else
+                        $('.discount_tr').hide();
+                    printDiv('invoice-box');
+                }
+                else if(jqXHR.status === 204){
+                    printDiv('invoice-box');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR.responseJSON);
+                $('#invoices-table').hide();
+                $('.no_data_found').html('<h3 class="m-t-15">No Invoice Found</h3>');
+            }
+        });
+        return false;
+    })();
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+        document.body.innerHTML = originalContents;
+        window.print();
+    }
+</script>

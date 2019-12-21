@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="static/images/favicon.ico" type="image/x-icon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="static/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="static/stylesheets/jquery.dataTables.min.css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="/static/javascripts/vendor/jquery.min.js"></script>
+    <script src="/static/javascripts/vendor/bootstrap.min.js"></script>
+    <script src="/static/javascripts/vendor/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="static/stylesheets/main.css">
+</head>
+<body>
+<script>
+    const api_url = "{{api_url}}";
+    const auth = localStorage.getItem('akrandom')
+</script>
+{{{body}}}
+</body>
+</html>

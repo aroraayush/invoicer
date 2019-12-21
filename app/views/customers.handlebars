@@ -1,0 +1,99 @@
+<nav class="navbar navbar-default">
+    <a href="#" class="navbar-left"><img class="custom_brand_logo" src="/static/images/logo.png" alt="logo"  style="float: left;" height="50"></a>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs navbar-nav navbar-right">
+            <li class=""><a href="/products"><i class="fa fa-th-list" aria-hidden="true"></i> Products</a></li>
+            <li class=""><a href="/invoices"><i class="fa fa-file-text-o" aria-hidden="true"></i> Invoices</a></li>
+            <li class="active"><a href="#"><i class="fa fa-users" aria-hidden="true"></i> Customers</a></li>
+            <li class="logout-root"><a href="#logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-md-6 ">
+        <h2>Customers</h2>
+    </div>
+    <div class="col-md-6 ">
+        <div class="add_more_button add_new_customer" style="width: 124px"><i class="fa fa-plus" aria-hidden="true"></i>
+            Add new Customer
+        </div>
+        <div class="remove_more_button remove_new_customer" style="width: 124px; display: none"><i class="fa fa-times" aria-hidden="true"></i>
+            Cancel
+        </div>
+    </div>
+</div>
+<div class="container">
+    <form class="add-customer-form" style="display: none">
+        <hr>
+        <h4 class="color-green">NEW CUSTOMER</h4>
+        <div class="row m-t-15">
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" placeholder="Enter Name" name="name" required>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label>Mobile</label>
+                    <input type="number" step="1" minlength="10" min="1000000000" name="mobile" id="mobile" tabindex="1"
+                           class="form-control" placeholder="Enter Mobile Number" required title="10 digit Numbers">
+                </div>
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" id="email" tabindex="1" class="form-control"
+                           placeholder="Email Address" required>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group">
+                <label>Company Name</label>
+                <input type="text" name="company_name" id="company_name" tabindex="1" class="form-control"
+                       placeholder="Company Name" required>
+            </div>
+        </div>
+        <div class="row m-t-15">
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label>Company Type</label>
+                    <select required name="company_type" id="company_type" tabindex="1">
+                        <option title='Select'>Select</option>
+                        <option title='freelancer' value='1'>Freelancer</option>
+                        <option title='small_business' value='2'>Small Business</option>
+                        <option title='limited_liability_company' value='3'>Limited Liability Company</option>
+                        <option title='multinational_corporation' value='4'>Multinational Corporation</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 ">
+                <div class="form-group">
+                    <label>TIN No</label>
+                    <input type="number" class="form-control" placeholder="Enter TIN No" name="tin_number" required>
+                </div>
+            </div>
+        </div>
+        <div class="customer_alert_div alert" style="display: none"></div>
+        <button type="submit" class="btn submit-btn">Submit</button>
+    </form>
+    <hr>
+    <table id="customers-table" class="display:none" cellspacing="0" width="100%">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Company Name</th>
+            <th>Company Type</th>
+            <th>TIN No</th>
+        </tr>
+        </thead>
+    </table>
+    <div class="no_data_found" style=""></div>
+</div>
+<script type="text/javascript" src="static/javascripts/customer.js"></script>
+<script type="text/javascript" src="static/javascripts/logout.js"></script>

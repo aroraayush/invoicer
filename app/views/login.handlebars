@@ -1,0 +1,128 @@
+<style>
+    html, body {
+        height:100%;
+        width:100%;
+    }
+    body {
+        background-color: white;
+        background-image: url('static/images/auth-background.jpg');
+        background-size: auto 100%;
+        background-repeat: no-repeat;
+        background-position: left top;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
+<!--[if IE]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+<![endif]-->
+<div class="container">
+    <div class="row">
+        <div style="text-align: center;margin-bottom: 35px;">
+            <h3>Invoicer - invoicer Solution</h3>
+            <img src="/static/images/logo.png" height="100">
+        </div>
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-login">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6 text-center">
+                            <a href="#" class="active" id="login-form-link">Login</a>
+                        </div>
+                        <div class="col-xs-6 div-border-left">
+                            <a href="/register" id="register-form-link">Register</a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form id="login-form" style="display: block;">
+                                <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" name="username" minlength="10" id="username" tabindex="1" class="form-control" placeholder="Username (Mobile)" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    <input type="password" required  name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                </div>
+                                <div class="login_alert_div alert" style="display: none"></div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    if (typeof(Storage) !== "undefined") {
+        if (auth !== null) {
+            window.location = "/customers";
+        }
+    }
+    else{
+        $('#login-form').html('<h1 style="margin: 55px;text-align: center">Browser not supported</h1>')
+    }
+
+    $(document).on("keydown", "#username", function(event){
+        if (event.keyCode == 8 || event.keyCode == 37 || event.keyCode == 39 || (event.keyCode >= 48 &&  event.keyCode <= 58))
+            return true;
+        else
+            return false;
+    })
+
+    $(document).on("submit", "#login-form", function(){
+        const username = $(this).find('input[name="username"]').val().trim();
+        const password = $(this).find('input[name="password"]').val().trim();
+
+        if(!username.length){
+            $('.login_alert_div').addClass('alert-danger');
+            $(".login_alert_div").text("Username cannot be left blank").show(0).delay(3000).hide(0);
+        }
+        else if(!password.length){
+            $('.login_alert_div').addClass('alert-danger');
+            $(".login_alert_div").text("Password cannot be left blank").show(0).delay(3000).hide(0);
+            return false;
+        }
+
+        let detailJSON = JSON.stringify({username, password});
+
+        $.ajax({
+            url: `${api_url}/user/login`,
+            type: 'post',
+            data: detailJSON,
+            contentType: 'application/json',
+            success: function(data, textStatus, jqXHR){
+                if(jqXHR.status === 200 && data.status === "success"){
+                    $('.login_alert_div').removeClass('alert-danger').addClass('alert-success');
+                    $(".login_alert_div").text("Logged in. Redirecting....").show().fadeTo(5000, 500).slideUp(500);
+                    let cookieName = "inv_cookie";
+                    localStorage.setItem('akrandom',data.data);
+                    window.location = "/customers";
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown){
+                $(".login_alert_div").empty().hide().addClass('alert-danger').removeClass('alert-success');
+                if(jqXHR.hasOwnProperty('responseJSON') && jqXHR.responseJSON.hasOwnProperty('message')){
+                    $(".login_alert_div").text(jqXHR.responseJSON.message).show().fadeTo(3000, 500).slideUp(500);
+                }
+                else {
+                    $(".login_alert_div").text("Error loggin in. Please try after some time !!").show().fadeTo(3000, 500).slideUp(500);
+                }
+            }
+        });
+        return false;
+    });
+</script>
