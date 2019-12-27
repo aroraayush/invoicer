@@ -2,7 +2,7 @@
 
 A web application for small business owners and freelancers needing a simple and professional invoicing solution.
 
-### Generated Invoice
+###### Generated Invoice
 ![Screen Shot 2019-12-27 at 12 32 18 PM](https://user-images.githubusercontent.com/23554810/71531752-fba71480-28a4-11ea-9d7a-bc72b2e535ab.png)
 
 ## Starting the project
