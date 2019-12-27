@@ -15,9 +15,8 @@ A web application for small business owners and freelancers needing a simple and
 ![Screen Shot 2019-12-27 at 12 32 18 PM](https://user-images.githubusercontent.com/23554810/71531752-fba71480-28a4-11ea-9d7a-bc72b2e535ab.png)
 
 
-## Optional Features
+## WIP Features
 
-- Server-side validations for required body parameters sent in the request to the server
 - Bar-code generation for each invoice to easily access the invoices data later on
 - Sending invoice to the customer email via button click on the web site (Gmail API will be used)
 
