@@ -2,6 +2,9 @@
 
 A web application for small business owners and freelancers needing a simple and professional invoicing solution.
 
+### Generated Invoice
+![Screen Shot 2019-12-27 at 12 32 18 PM](https://user-images.githubusercontent.com/23554810/71531752-fba71480-28a4-11ea-9d7a-bc72b2e535ab.png)
+
 ## Starting the project
 Create a schema in your MySQL instance called `invoicing`
 Create tables from `sqlQueries.sql` in the same order as provided in file.
@@ -85,7 +88,3 @@ To run the API, Goto api folder, open terminal in directory and type `npm run st
 > Running the APP
 
 To run the APP, Goto app folder, open terminal in directory and type `npm run start`
-
-> Generated Invoice
-![Screen Shot 2019-12-27 at 12 32 18 PM](https://user-images.githubusercontent.com/23554810/71531752-fba71480-28a4-11ea-9d7a-bc72b2e535ab.png)
-
