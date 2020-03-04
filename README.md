@@ -16,7 +16,7 @@ A web application for small business owners and freelancers needing a simple and
 
 
 ## WIP Features
-
+- Middleware for Handling Errors, Responses
 - Bar-code generation for each invoice to easily access the invoices data later on
 - Sending invoice to the customer email via button click on the web site (Gmail API will be used)
 
