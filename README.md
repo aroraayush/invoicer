@@ -3,22 +3,19 @@
 A web application for small business owners and freelancers needing a simple and professional invoicing solution.
 ## Core features
 
-- Basic user login/registration flow
+- User authentication for security
 
-- Storing new products, viewing existing ones
+- Storing / Viewing products & customers and linking them
 
-- Store customer details, viewing existing customer details
-
-- PDF invoice generation with a unique Id, View already generated invoices
+- PDF invoice generation, & printing, Managing already generated ones
 
 ###### Generated Invoice
 ![Screen Shot 2019-12-27 at 12 32 18 PM](https://user-images.githubusercontent.com/23554810/71531752-fba71480-28a4-11ea-9d7a-bc72b2e535ab.png)
 
 
 ## WIP Features
-- Middleware for Handling Errors, Responses
 - Bar-code generation for each invoice to easily access the invoices data later on
-- Sending invoice to the customer email via button click on the web site (Gmail API will be used)
+- Gmail API Integaration (Sending invoice to the customer email via button click)
 
 ## Languages &amp; Tools
 
