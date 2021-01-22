@@ -3,7 +3,7 @@
 A web application for small business owners and freelancers needing a simple and professional invoicing solution.
 ## Core features
 
-- User authentication for security
+- User authentication (jwt) for security
 
 - Storing / Viewing products & customers and linking them
 
